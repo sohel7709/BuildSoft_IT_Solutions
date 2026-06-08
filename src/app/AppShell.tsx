@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -14,6 +14,11 @@ type Props = {
 export default function AppShell({ theme, toggleTheme, navigate, children }: Props) {
   const location = useLocation();
   const currentPath = location.pathname || '/';
+
+  useEffect(() => {
+    // Ensure after route navigation the page is always scrolled to the top.
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [currentPath]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 selection:bg-blue-200 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100 transition-colors duration-300">
